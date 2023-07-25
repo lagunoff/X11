@@ -233,13 +233,13 @@ wrapPtr2 cfun f = withPool $ \pool -> do aptr <- pooledMalloc pool
 -- Nothing
 xScreenSaverQueryInfo :: Display -> IO (Maybe XScreenSaverInfo)
 xScreenSaverQueryInfo dpy = do
-    p <- cXScreenSaverAllocInfo
-    if p == nullPtr then return Nothing else do
+  p <- cXScreenSaverAllocInfo
+  if p == nullPtr then return Nothing else do
     s <- cXScreenSaverQueryInfo dpy (defaultRootWindow dpy) p
     if s == 0 then return Nothing else do
-    xssi <- peek p
-    _ <- xFree p
-    return (Just xssi)
+      xssi <- peek p
+      _ <- xFree p
+      return (Just xssi)
 
 -- | xScreenSaverSelectInput asks that events related to the screen saver be
 -- generated for this client.  If no bits are set in event-mask,  then no events
@@ -248,7 +248,7 @@ xScreenSaverSelectInput :: Display -> EventMask -> IO ()
 xScreenSaverSelectInput dpy xssem = do
     p <- cXScreenSaverAllocInfo
     if p == nullPtr then return () else do
-    cXScreenSaverSelectInput dpy (defaultRootWindow dpy) xssem
+      cXScreenSaverSelectInput dpy (defaultRootWindow dpy) xssem
 
 -- | XScreenSaverSetAttributes sets the attributes to be used the next  time
 -- the  external  screen  saver is activated.  If another client currently
